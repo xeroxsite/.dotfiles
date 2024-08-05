@@ -1,0 +1,29 @@
+#!/bin/env bash
+
+set () {
+  wal -n -i $1
+  xwallpaper --stretch $1 &
+}
+
+save () {
+  ln -sf $1 $HOME/.local/share/default_wallpaper
+}
+
+reload () {
+  xdotool key Super+F5 &
+  pkill dwmblocks && dwmblocks &
+  ln -sf .cache/wal/colors.Xresources .Xresources &
+  reload-discord &
+}
+
+if [ -f "$1" ]; then
+  set $1 &
+  save $1 &
+  reload &
+else
+  wp_location=$(find $HOME/pix/wallpapers -name "*.png" -o -name "*.jpg" -o -name "*.gif" | nsxiv -tio)
+  if [ -f "$wp_location" ]; then
+    set $wp_location && reload &
+    save $wp_location &
+  fi 
+fi

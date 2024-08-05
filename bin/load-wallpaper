@@ -1,0 +1,5 @@
+wp_location=$HOME/.local/share/default_wallpaper
+wal -i $wp_location && xdotool key Super+F5 &
+xwallpaper --stretch $wp_location &
+xdotool key Super+F5 &
+ln -sf .cache/wal/colors.Xresources .Xresources &
